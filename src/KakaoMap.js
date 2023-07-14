@@ -2,12 +2,22 @@ import React, { useEffect, useRef, useState } from "react";
 import Kaistmaru from "./assets/kaistmaru.jpeg";
 import Lotteria from "./assets/lotteria.jpg";
 import Taeul from "./assets/taeul.jpg";
+import CommentSection from "./CommentSection";
 
 const KakaoMap = () => {
   const mapContainer = useRef(null);
   const [info, setInfo] = useState(null);
   const [image, setImage] = useState(null); // 이미지를 저장할 state를 생성
   const [des, setDes] = useState(null);
+  const [comments, setComments] = useState({});
+  const [place, setPlace] = useState(null);
+
+  const addComment = (placeName, comment) => {
+    setComments((prevComments) => ({
+      ...prevComments,
+      [placeName]: [...(prevComments[placeName] || []), comment],
+    }));
+  };
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -61,9 +71,10 @@ const KakaoMap = () => {
             marker.setMap(map);
 
             window.kakao.maps.event.addListener(marker, "click", function () {
-              setInfo(`${place.name}`); // click event
+              setInfo(`${place.name} 정보`); // click event
               setImage(place.image); // 마커를 클릭할 때 이미지를 변경
               setDes(place.des);
+              setPlace(place.name);
             });
           });
         },
@@ -93,7 +104,7 @@ const KakaoMap = () => {
           overflow: "auto",
         }}
       >
-        {info}
+        <p style={{ color: "blue", fontSize: "20px" }}>{info}</p>
         {image && (
           <img
             src={image}
@@ -101,10 +112,15 @@ const KakaoMap = () => {
             style={{ width: "100%", height: "auto" }}
           />
         )}{" "}
-        {/* 이미지가 있을 경우 출력 */}
         {des && (
           <p
             dangerouslySetInnerHTML={{ __html: des.replace(/\n/g, "<br />") }}
+          />
+        )}
+        {place && (
+          <CommentSection
+            comments={comments[place] || []}
+            onNewComment={(comment) => addComment(place, comment)}
           />
         )}
       </div>
