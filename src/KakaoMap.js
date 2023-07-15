@@ -11,6 +11,7 @@ const KakaoMap = () => {
   const [des, setDes] = useState(null);
   const [comments, setComments] = useState({});
   const [place, setPlace] = useState(null);
+  const [link, setLink] = useState(null);
 
   const addComment = (placeName, comment) => {
     setComments((prevComments) => ({
@@ -41,6 +42,7 @@ const KakaoMap = () => {
               lng: 127.35924359581102,
               image: Kaistmaru,
               des: "[매일]\n조식 8:00-9:00\n중식 11:30-13:30\n석식 17:30-19:00",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?",
             },
             {
               name: "태울관",
@@ -48,6 +50,7 @@ const KakaoMap = () => {
               lng: 127.3600231283904,
               image: Taeul,
               des: "[평일]\n10:30-20:30\n(라스트 오더 20:00, 브레이크 타임 14:30-16:30)\n\n[주말 및 공휴일]\n휴무",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=taeul_cafe",
             },
             {
               name: "롯데리아",
@@ -55,6 +58,7 @@ const KakaoMap = () => {
               lng: 127.36054704682378,
               image: Lotteria,
               des: "[매일]\n08:00-03:00",
+              link: "https://www.lotteeatz.com/brand/ria",
             },
             // 필요한 만큼 장소를 추가할 수 있습니다.
           ];
@@ -71,10 +75,11 @@ const KakaoMap = () => {
             marker.setMap(map);
 
             window.kakao.maps.event.addListener(marker, "click", function () {
-              setInfo(`${place.name} 정보`); // click event
+              setInfo(`${place.name}`); // click event
               setImage(place.image); // 마커를 클릭할 때 이미지를 변경
               setDes(place.des);
               setPlace(place.name);
+              setLink(place.link);
             });
           });
         },
@@ -100,11 +105,10 @@ const KakaoMap = () => {
           width: "25vw",
           height: "100vh",
           backgroundColor: "#f8f9fa",
-          padding: "1rem",
+          //padding: "1rem",
           overflow: "auto",
         }}
       >
-        <p style={{ color: "blue", fontSize: "20px" }}>{info}</p>
         {image && (
           <img
             src={image}
@@ -112,6 +116,10 @@ const KakaoMap = () => {
             style={{ width: "100%", height: "auto" }}
           />
         )}{" "}
+        <p style={{ fontSize: "40px" }}>{info}</p>
+        <button onClick={() => window.open(`${link}`, "_blank")}>
+          홈페이지 바로가기
+        </button>
         {des && (
           <p
             dangerouslySetInnerHTML={{ __html: des.replace(/\n/g, "<br />") }}

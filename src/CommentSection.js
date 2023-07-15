@@ -16,12 +16,12 @@ const CommentSection = ({ comments, onNewComment }) => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          placeholder="Write a comment..."
+          placeholder="리뷰를 작성해주세요."
         />
-        <button type="submit">Post</button>
+        <button type="submit">작성</button>
       </form>
       <div>
-        {comments.map((comment, index) => (
+        {[...comments].reverse().map((comment, index) => (
           <p key={index}>{comment}</p>
         ))}
       </div>
