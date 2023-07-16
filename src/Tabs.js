@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 // 각 탭의 내용을 담을 컴포넌트
-const HomeTab = () => <div>홈 정보</div>;
-const MenuTab = () => <div>메뉴 정보</div>;
+const HomeTab = ({ place }) => <div>홈 정보</div>;
+const MenuTab = ({ place }) => place && <p>{place.menu}</p>;
 const ReviewTab = ({ place, comments, addComment, CommentSection }) => (
   <div>
     리뷰 정보
@@ -47,7 +47,7 @@ const Tabs = ({ place, comments, addComment, CommentSection }) => {
       </button>
 
       {currentTab === "home" && <HomeTab />}
-      {currentTab === "menu" && <MenuTab />}
+      {currentTab === "menu" && <MenuTab place={place} />}
       {currentTab === "review" && (
         <ReviewTab
           place={place}
