@@ -4,8 +4,10 @@ import Kaistmaru from "./assets/kaistmaru.jpeg";
 import Lotteria from "./assets/lotteria.jpg";
 import Taeul from "./assets/taeul.jpg";
 import Neopjuk from "./assets/neopjuk.jpg";
+import N1building from "./assets/N1buliding.jpg";
 
 import CommentSection from "./CommentSection";
+import Tabs from "./Tabs";
 
 const KakaoMap = () => {
   const mapContainer = useRef(null);
@@ -79,6 +81,14 @@ const KakaoMap = () => {
               des: "[매일]\n08:00-03:00",
               link: "https://www.lotteeatz.com/brand/ria",
             },
+            {
+              name: "IT융합빌딩 (실습실)",
+              lat: 36.374205180261505,
+              lng: 127.36571727296767,
+              image: N1building,
+              des: "[매일]\n00:00-24:00",
+              link: "https://student.kaist.ac.kr/wiki/%EA%B9%80%EB%B3%91%ED%98%B8%C2%B7%EA%B9%80%EC%82%BC%EC%97%B4_IT%EC%9C%B5%ED%95%A9%EB%B9%8C%EB%94%A9",
+            },
           ];
 
           places.forEach((place) => {
@@ -149,12 +159,13 @@ const KakaoMap = () => {
             dangerouslySetInnerHTML={{ __html: des.replace(/\n/g, "<br />") }}
           />
         )}
-        {place && (
-          <CommentSection
-            comments={comments[place] || []}
-            onNewComment={(comment) => addComment(place, comment)}
-          />
-        )}
+
+        <Tabs
+          place={place}
+          comments={comments}
+          addComment={addComment}
+          CommentSection={CommentSection}
+        />
       </div>
       <div
         id="myMap"
