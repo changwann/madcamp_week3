@@ -1,3 +1,7 @@
-const MenuTab = ({ place }) => <div>메뉴정보</div>;
+const MenuTab = ({ place }) => (
+  <div>
+    <p>{place.menu}</p>
+  </div>
+);
 
 export default MenuTab;

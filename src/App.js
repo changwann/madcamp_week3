@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import KakaoMap from './KakaoMap';
+import React, { useState, useEffect } from "react";
+import KakaoMap from "./KakaoMap";
 
 const App = () => {
-  const [userName, setUserName] = useState('');
+  const [userName, setUserName] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
     if (window.Kakao && !window.Kakao.isInitialized()) {
-      window.Kakao.init('f95a2463cd43be7223e9d7b3921849a4');
+      window.Kakao.init("82e2e8490760bfb5909f078a3eff8b74");
     }
   }, []);
 
@@ -28,7 +28,7 @@ const App = () => {
 
   const fetchUserInfo = (accessToken) => {
     window.Kakao.API.request({
-      url: '/v2/user/me',
+      url: "/v2/user/me",
       success: (response) => {
         console.log(2);
         // 사용자 정보 가져오기 성공
@@ -44,21 +44,21 @@ const App = () => {
 
   const saveUserInfo = (nickname) => {
     console.log(3);
-    fetch('http://localhost:4000/api/saveUserInfo', {
-      method: 'POST',
+    fetch("http://localhost:4000/api/saveUserInfo", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({ nickname }),
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('User info saved:', data);
+        console.log("User info saved:", data);
         setUserName(nickname);
         setIsLoggedIn(true);
       })
       .catch((error) => {
-        console.error('Error saving user info:', error);
+        console.error("Error saving user info:", error);
       });
   };
 
@@ -74,4 +74,3 @@ const App = () => {
 };
 
 export default App;
-

@@ -8,7 +8,7 @@ import N1building from "./assets/N1buliding.jpg";
 
 import Tabs from "./Tabs";
 
-const KakaoMap = () => {
+const KakaoMap = ({ userName }) => {
   const mapContainer = useRef(null);
   const [info, setInfo] = useState(
     "카이스트에 오신 걸 환영합니다!\n원하는 편의 시설을 클릭해서\n둘러보세요."
@@ -17,6 +17,7 @@ const KakaoMap = () => {
   const [des, setDes] = useState(null);
   const [place, setPlace] = useState(null);
   const [link, setLink] = useState(null);
+  const [menu, setMenu] = useState(null);
 
   const [isMarkerClicked, setIsMarkerClicked] = useState(false);
 
@@ -43,6 +44,7 @@ const KakaoMap = () => {
               setDes(null);
               setPlace(null);
               setLink(null);
+              setMenu(null);
             } else {
               setIsMarkerClicked(false);
             }
@@ -56,6 +58,7 @@ const KakaoMap = () => {
               image: Kaistmaru,
               des: "[매일]\n조식 8:00-9:00\n중식 11:30-13:30\n석식 17:30-19:00",
               link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt",
+              menu: "매일 바뀜",
             },
             {
               name: "태울관",
@@ -64,6 +67,7 @@ const KakaoMap = () => {
               image: Taeul,
               des: "[평일]\n10:30-20:30\n(라스트 오더 20:00, 브레이크 타임 14:30-16:30)\n\n[주말 및 공휴일]\n휴무",
               link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=taeul_cafe",
+              menu: "제육볶음, 순두부찌개, 설렁탕, 냉면, 만두 등",
             },
             {
               name: "롯데리아",
@@ -72,6 +76,7 @@ const KakaoMap = () => {
               image: Lotteria,
               des: "[매일]\n08:00-03:00",
               link: "https://www.lotteeatz.com/brand/ria",
+              menu: "햄버거, 치킨, 감자튀김, 콜라, 아이스크림 등",
             },
             {
               name: "IT융합빌딩 (실습실)",
@@ -80,6 +85,7 @@ const KakaoMap = () => {
               image: N1building,
               des: "[매일]\n00:00-24:00",
               link: "https://student.kaist.ac.kr/wiki/%EA%B9%80%EB%B3%91%ED%98%B8%C2%B7%EA%B9%80%EC%82%BC%EC%97%B4_IT%EC%9C%B5%ED%95%A9%EB%B9%8C%EB%94%A9",
+              menu: "음식점이 아님",
             },
           ];
 
@@ -98,8 +104,9 @@ const KakaoMap = () => {
               setInfo(`${place.name}`);
               setImage(place.image);
               setDes(place.des);
-              setPlace(place.name);
+              setPlace(place);
               setLink(place.link);
+              setMenu(place.menu);
             });
           });
         },
@@ -152,9 +159,7 @@ const KakaoMap = () => {
           />
         )}
 
-        <Tabs
-          place={place}
-        />
+        <Tabs place={place} userName={userName} />
       </div>
       <div
         id="myMap"

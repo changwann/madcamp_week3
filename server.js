@@ -1,76 +1,91 @@
-const express = require('express');
-const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
-const path = require('path');
-const cors = require('cors');
+const express = require("express");
+const http = require("http");
+const socketIo = require("socket.io");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const path = require("path");
+const cors = require("cors");
 
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("New client connected");
+  socket.on("chat message", (data) => {
+    console.log("nickname: ", data.nickname);
+    console.log("message: ", data.message);
+    io.emit("chat message", data);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("Client disconnected");
+  });
+});
+
 app.use(bodyParser.json());
 app.use(cors());
 
-const password = "dbtjdch366!"; // 몽고 디비 패스워드
+const mongoURL = `mongodb+srv://dbUser:1234@cluster0.58hujwe.mongodb.net/`;
 
-// 몽고디비 연결 설정
-const user = "kkhs1kim";
-const dbName = "mydatabase";
-
-const mongoURL = `mongodb+srv://${user}:${encodeURIComponent(password)}@kkhs1kim.jfdcs8g.mongodb.net/${dbName}?retryWrites=true&w=majority`;
-
-mongoose.connect(mongoURL)
+mongoose
+  .connect(mongoURL)
   .then(() => {
     console.log("MongoDB connected:", mongoURL);
-    const PORT = process.env.PORT || 4000;
-    app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
   })
-  .catch(err => {
+  .catch((err) => {
     console.error("MongoDB connection error:", err);
   });
+
+const PORT = process.env.PORT || 4000;
 
 const UserSchema = new mongoose.Schema({
   nickname: String,
 });
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 
 // 사용자 정보 저장 API
-app.post('/api/saveUserInfo', async (req, res) => {
-  console.log('됨');
+app.post("/api/saveUserInfo", async (req, res) => {
+  console.log("됨");
   const { nickname } = req.body;
 
   try {
     const existingUser = await User.findOne({ nickname });
     if (existingUser) {
-      return res.status(409).json({ error: 'User already exists' });
+      return res.status(409).json({ error: "User already exists" });
     }
 
     const user = new User({ nickname });
     await user.save();
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    res.json({ message: 'User info saved successfully' });
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+    res.json({ message: "User info saved successfully" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: 'Failed to save user info' });
+    res.status(500).json({ error: "Failed to save user info" });
   }
 });
 
+// 사용자 정보 가져오는 API
+app.get("/api/getUserInfo/:nickname", async (req, res) => {
+  const { nickname } = req.params;
 
-// 리디렉션 처리를 위한 라우트 설정
-app.get('/api/success', (req, res) => {
-  console.log("API SUCCESS!!!");
-  // 리디렉션 성공 페이지로 이동
-  res.sendFile(path.join(__dirname, 'public', 'success.html'));
+  try {
+    const user = await User.findOne({ nickname });
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    res.json(user);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to get user info" });
+  }
 });
 
-app.get('/api/failure', (req, res) => {
-  console.log("API FAILURE!!!");
-
-  // 리디렉션 실패 페이지로 이동
-  res.sendFile(path.join(__dirname, 'public', 'failure.html'));
-});
-
-// 정적 파일 서비스 설정
-app.use(express.static('public'));
-
-// 모든 경로에 대해 리디렉션 처리
-app.get('*', (req, res) => {
-  res.redirect('/api/failure');
-});
+server.listen(PORT, () => console.log(`Server Port: ${PORT}`));

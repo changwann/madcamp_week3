@@ -3,7 +3,7 @@ import HomeTab from "./HomeTab";
 import MenuTab from "./MenuTab";
 import ReviewTab from "./ReviewTab";
 
-const Tabs = ({ place }) => {
+const Tabs = ({ place, userName }) => {
   const [currentTab, setCurrentTab] = useState("home");
 
   useEffect(() => {
@@ -34,13 +34,9 @@ const Tabs = ({ place }) => {
         리뷰
       </button>
 
-      {currentTab === "home" && <HomeTab />}
-      {currentTab === "menu" && <MenuTab place={place}/>}
-      {currentTab === "review" && (
-        <ReviewTab
-          place={place}
-        />
-      )}
+      {currentTab === "home" && <HomeTab userName={userName} />}
+      {currentTab === "menu" && <MenuTab place={place} />}
+      {currentTab === "review" && <ReviewTab place={place} />}
     </div>
   );
 };
