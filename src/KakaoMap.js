@@ -6,7 +6,6 @@ import Taeul from "./assets/taeul.jpg";
 import Neopjuk from "./assets/neopjuk.jpg";
 import N1building from "./assets/N1buliding.jpg";
 
-import CommentSection from "./CommentSection";
 import Tabs from "./Tabs";
 
 const KakaoMap = () => {
@@ -16,18 +15,11 @@ const KakaoMap = () => {
   );
   const [image, setImage] = useState(Neopjuk);
   const [des, setDes] = useState(null);
-  const [comments, setComments] = useState({});
   const [place, setPlace] = useState(null);
   const [link, setLink] = useState(null);
 
   const [isMarkerClicked, setIsMarkerClicked] = useState(false);
 
-  const addComment = (placeName, comment) => {
-    setComments((prevComments) => ({
-      ...prevComments,
-      [placeName]: [...(prevComments[placeName] || []), comment],
-    }));
-  };
   // eslint-disable-next-line
   useEffect(() => {
     if (navigator.geolocation) {
@@ -162,9 +154,6 @@ const KakaoMap = () => {
 
         <Tabs
           place={place}
-          comments={comments}
-          addComment={addComment}
-          CommentSection={CommentSection}
         />
       </div>
       <div

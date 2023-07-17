@@ -1,21 +1,9 @@
 import React, { useState, useEffect } from "react";
+import HomeTab from "./HomeTab";
+import MenuTab from "./MenuTab";
+import ReviewTab from "./ReviewTab";
 
-// 각 탭의 내용을 담을 컴포넌트
-const HomeTab = () => <div>홈 정보</div>;
-const MenuTab = () => <div>메뉴 정보</div>;
-const ReviewTab = ({ place, comments, addComment, CommentSection }) => (
-  <div>
-    리뷰 정보
-    {place && (
-      <CommentSection
-        comments={comments[place] || []}
-        onNewComment={(comment) => addComment(place, comment)}
-      />
-    )}
-  </div>
-);
-
-const Tabs = ({ place, comments, addComment, CommentSection }) => {
+const Tabs = ({ place }) => {
   const [currentTab, setCurrentTab] = useState("home");
 
   useEffect(() => {
@@ -47,13 +35,10 @@ const Tabs = ({ place, comments, addComment, CommentSection }) => {
       </button>
 
       {currentTab === "home" && <HomeTab />}
-      {currentTab === "menu" && <MenuTab />}
+      {currentTab === "menu" && <MenuTab place={place}/>}
       {currentTab === "review" && (
         <ReviewTab
           place={place}
-          comments={comments}
-          addComment={addComment}
-          CommentSection={CommentSection}
         />
       )}
     </div>
