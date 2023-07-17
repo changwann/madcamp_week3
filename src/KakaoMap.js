@@ -125,7 +125,13 @@ const KakaoMap = ({ userName }) => {
   }, []);
 
   return (
-    <div style={{ display: "flex", width: "100vw", height: "100vh" }}>
+    <div
+      style={{
+        display: "flex",
+        width: "100vw",
+        height: "100vh",
+      }}
+    >
       <div
         id="infoPanel"
         style={{
