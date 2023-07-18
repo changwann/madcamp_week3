@@ -71,7 +71,7 @@ const HomeTab = ({ userName }) => {
           );
         } else {
           return (
-            <p key={idx} className="bubble-left">
+            <p key={idx} className="bubble-left" style={{ textAlign: "left" }}>
               [{msg.nickname}]<br />
               {msg.message}
               <small style={{ color: "blue", marginLeft: "10px" }}>
