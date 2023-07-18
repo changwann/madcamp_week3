@@ -66,7 +66,13 @@ io.on("connection", (socket) => {
 app.use(bodyParser.json());
 app.use(cors());
 
-const mongoURL = `mongodb+srv://dbUser:1234@cluster0.58hujwe.mongodb.net/`;
+const password = "dbtjdch366!"; // 몽고 디비 패스워드
+
+// 몽고디비 연결 설정n
+const user = "kkhs1kim";
+const dbName = "mydatabase";
+
+const mongoURL = `mongodb+srv://${user}:${encodeURIComponent(password)}@kkhs1kim.jfdcs8g.mongodb.net/${dbName}?retryWrites=true&w=majority`;
 
 mongoose
   .connect(mongoURL)
@@ -78,6 +84,9 @@ mongoose
   });
 
 const PORT = process.env.PORT || 4000;
+
+//스키마
+////////////////////////////////////////////////////////////////////////////////////////
 
 const UserSchema = new mongoose.Schema({
   nickname: String,
@@ -91,6 +100,16 @@ const ChatSchema = new mongoose.Schema({
   place: String,
 });
 const Chat = mongoose.model("Chat", ChatSchema);
+
+const ReviewSchema = new mongoose.Schema({
+  nickname: String,
+  review: String,
+  timestamp: Date,
+  place: String,
+});
+const Review = mongoose.model("Review", ReviewSchema);
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 // 사용자 정보 저장 API
 app.post("/api/saveUserInfo", async (req, res) => {
@@ -111,6 +130,8 @@ app.post("/api/saveUserInfo", async (req, res) => {
     res.status(500).json({ error: "Failed to save user info" });
   }
 });
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 // 사용자 정보 가져오는 API
 app.get("/api/getUserInfo/:nickname", async (req, res) => {
@@ -160,5 +181,36 @@ app.get("/professor", async (req, res) => {
   const dinner = $("#tab_item_1 > table > tbody > tr > td:nth-child(3)").text();
   res.json({ breakfast, lunch, dinner });
 });
+
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+app.post("/api/saveReview", async (req, res) => {
+  const { nickname, review, place } = req.body;
+
+  try {
+    const reviewRecord = new Review({ nickname, review, timestamp: new Date(), place });
+    await reviewRecord.save();
+    res.json({ message: "Review saved successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to save review" });
+  }
+});
+
+app.get("/api/getReviews/:place", async (req, res) => {
+  const { place } = req.params;
+
+  try {
+    const reviews = await Review.find({ place }).sort("-timestamp");
+    res.json(reviews);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to get reviews" });
+  }
+});
+
+
+////////////////////////////////////////////////////////////////////////////////////////
 
 server.listen(PORT, () => console.log(`Server Port: ${PORT}`));

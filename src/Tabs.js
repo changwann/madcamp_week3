@@ -40,7 +40,9 @@ const Tabs = ({ place, userName }) => {
             <HomeTab userName={userName} place={place} />
           )}
           {currentTab === "menu" && <MenuTab place={place} />}
-          {currentTab === "review" && <ReviewTab place={place} />}
+          {currentTab === "review" && (
+            <ReviewTab userName={userName} place={place} />
+          )}
         </div>
       )}
     </div>
