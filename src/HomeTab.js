@@ -64,7 +64,7 @@ const HomeTab = ({ userName }) => {
               style={{ fontWeight: "bold", textAlign: "right" }}
             >
               <small style={{ color: "blue", marginRight: "10px" }}>
-                {new Date(msg.timestamp).toLocaleTimeString()} -
+                {new Date(msg.timestamp).toLocaleTimeString()}
               </small>
               {msg.message}
             </p>
@@ -75,7 +75,7 @@ const HomeTab = ({ userName }) => {
               [{msg.nickname}]<br />
               {msg.message}
               <small style={{ color: "blue", marginLeft: "10px" }}>
-                - {new Date(msg.timestamp).toLocaleTimeString()}
+                {new Date(msg.timestamp).toLocaleTimeString()}
               </small>
             </p>
           );
