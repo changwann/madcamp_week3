@@ -15,28 +15,32 @@ const Tabs = ({ place, userName }) => {
 
   return (
     <div>
-      <button
-        style={currentTab === "home" ? activeButtonStyle : buttonStyle}
-        onClick={() => setCurrentTab("home")}
-      >
-        홈
-      </button>
-      <button
-        style={currentTab === "menu" ? activeButtonStyle : buttonStyle}
-        onClick={() => setCurrentTab("menu")}
-      >
-        메뉴
-      </button>
-      <button
-        style={currentTab === "review" ? activeButtonStyle : buttonStyle}
-        onClick={() => setCurrentTab("review")}
-      >
-        리뷰
-      </button>
+      {place && (
+        <div>
+          <button
+            style={currentTab === "home" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("home")}
+          >
+            홈
+          </button>
+          <button
+            style={currentTab === "menu" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("menu")}
+          >
+            메뉴
+          </button>
+          <button
+            style={currentTab === "review" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("review")}
+          >
+            리뷰
+          </button>
 
-      {currentTab === "home" && <HomeTab userName={userName} />}
-      {currentTab === "menu" && <MenuTab place={place} />}
-      {currentTab === "review" && <ReviewTab place={place} />}
+          {currentTab === "home" && <HomeTab userName={userName} />}
+          {currentTab === "menu" && <MenuTab place={place} />}
+          {currentTab === "review" && <ReviewTab place={place} />}
+        </div>
+      )}
     </div>
   );
 };

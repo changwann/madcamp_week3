@@ -5,6 +5,10 @@ import Lotteria from "./assets/lotteria.jpg";
 import Taeul from "./assets/taeul.jpg";
 import Neopjuk from "./assets/neopjuk.jpg";
 import N1building from "./assets/N1buliding.jpg";
+import N6 from "./assets/N6.jpg";
+import Tom from "./assets/tom.jpg";
+import Pulbitmaru from "./assets/pulbitmaru.jpg";
+import Subway from "./assets/subway.jpg";
 
 import Tabs from "./Tabs";
 
@@ -86,6 +90,41 @@ const KakaoMap = ({ userName }) => {
               des: "[매일]\n00:00-24:00",
               link: "https://student.kaist.ac.kr/wiki/%EA%B9%80%EB%B3%91%ED%98%B8%C2%B7%EA%B9%80%EC%82%BC%EC%97%B4_IT%EC%9C%B5%ED%95%A9%EB%B9%8C%EB%94%A9",
               menu: "음식점이 아님",
+            },
+            {
+              name: "교수회관",
+              lat: 36.37459106871984,
+              lng: 127.36477185541334,
+              image: N6,
+              des: "[매일]\n중식 11:20-13:30 석식 17:30-18:30",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=emp",
+              menu: "매일 바뀜",
+            },
+            {
+              name: "탐앤탐스",
+              lat: 36.37411159854939,
+              lng: 127.36537695074817,
+              image: Tom,
+              des: "[평일] 7:00-22:00\n[주말, 방학] 10:00-21:00\n[공휴일] 10:00-17:00",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=emp",
+              menu: "커피, 음료, 티, 스무디, 프레즐, 피자, 베이커리 등",
+            },
+            {
+              name: "풀빛마루",
+              lat: 36.37421407766052,
+              lng: 127.35981948048043,
+              image: Pulbitmaru,
+              des: "[평일] 7:00-22:00\n[주말, 방학] 10:00-21:00\n[공휴일] 10:00-17:00",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=emp",
+              menu: "커피, 음료, 티, 스무디, 프레즐, 피자, 베이커리 등",
+            },
+            {
+              name: "서브웨이",
+              lat: 36.37170696429745,
+              lng: 127.36192518067469,
+              image: Subway,
+              des: "[매일] 08:00 ~ 23:00",
+              menu: "샌드위치, 커피, 음료, 쿠키, 샐러드 등",
             },
           ];
 
