@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
+const cheerio = require("cheerio");
 
 const app = express();
 const server = http.createServer(app);
@@ -93,7 +94,6 @@ const Chat = mongoose.model("Chat", ChatSchema);
 
 // 사용자 정보 저장 API
 app.post("/api/saveUserInfo", async (req, res) => {
-  console.log("됨");
   const { nickname } = req.body;
 
   try {
@@ -127,6 +127,38 @@ app.get("/api/getUserInfo/:nickname", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "Failed to get user info" });
   }
+});
+
+app.get("/kaistmaru", async (req, res) => {
+  const fetch = (await import("node-fetch")).default;
+  const response = await fetch(
+    "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=fclt"
+  );
+  let body = await response.text();
+  body = body.replace(/<br\s*\/?>/gm, "\n");
+  const $ = cheerio.load(body);
+  const breakfast = $(
+    "#tab_item_1 > table > tbody > tr > td:nth-child(1)"
+  ).text();
+  const lunch = $("#tab_item_1 > table > tbody > tr > td:nth-child(2)").text();
+  const dinner = $("#tab_item_1 > table > tbody > tr > td:nth-child(3)").text();
+  res.json({ breakfast, lunch, dinner });
+});
+
+app.get("/professor", async (req, res) => {
+  const fetch = (await import("node-fetch")).default;
+  const response = await fetch(
+    "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=emp"
+  );
+  let body = await response.text();
+  body = body.replace(/<br\s*\/?>/gm, "\n");
+  const $ = cheerio.load(body);
+  const breakfast = $(
+    "#tab_item_1 > table > tbody > tr > td:nth-child(1)"
+  ).text();
+  const lunch = $("#tab_item_1 > table > tbody > tr > td:nth-child(2)").text();
+  const dinner = $("#tab_item_1 > table > tbody > tr > td:nth-child(3)").text();
+  res.json({ breakfast, lunch, dinner });
 });
 
 server.listen(PORT, () => console.log(`Server Port: ${PORT}`));
