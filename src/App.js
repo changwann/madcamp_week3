@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import KakaoMap from "./KakaoMap";
+import kaist from "./assets/kaist.jpg";
+import icon from "./assets/icon.png";
+import "./App.css";
 
 const App = () => {
   const [userName, setUserName] = useState("");
@@ -63,12 +66,27 @@ const App = () => {
   };
 
   return (
-    <div>
-      {!isLoggedIn ? (
-        <button onClick={handleLogin}>카카오 로그인</button>
-      ) : (
-        <KakaoMap userName={userName} />
-      )}
+    <div className="background">
+      <div className="centerBox">
+        {!isLoggedIn ? (
+          <div className="content">
+            <img src={icon} alt="icon" className="icon" />
+            <h2>카이스트에 오신 걸 환영합니다!</h2>
+            <h2
+              style={{
+                margin: "0",
+              }}
+            >
+              KAIST MAP 서비스를 이용하려면 로그인을 해주세요.
+            </h2>
+            <button className="loginButton" onClick={handleLogin}>
+              카카오 로그인
+            </button>
+          </div>
+        ) : (
+          <KakaoMap userName={userName} />
+        )}
+      </div>
     </div>
   );
 };

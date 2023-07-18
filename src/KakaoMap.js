@@ -106,7 +106,7 @@ const KakaoMap = ({ userName }) => {
               lng: 127.36537695074817,
               image: Tom,
               des: "[평일] 7:00-22:00\n[주말, 방학] 10:00-21:00\n[공휴일] 10:00-17:00",
-              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=emp",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053305.html",
               menu: "커피, 음료, 티, 스무디, 프레즐, 피자, 베이커리 등",
             },
             {
@@ -115,7 +115,7 @@ const KakaoMap = ({ userName }) => {
               lng: 127.35981948048043,
               image: Pulbitmaru,
               des: "[평일] 7:00-22:00\n[주말, 방학] 10:00-21:00\n[공휴일] 10:00-17:00",
-              link: "https://www.kaist.ac.kr/kr/html/campus/053001.html?dvs_cd=emp",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053306.html",
               menu: "커피, 음료, 티, 스무디, 프레즐, 피자, 베이커리 등",
             },
             {
@@ -124,6 +124,7 @@ const KakaoMap = ({ userName }) => {
               lng: 127.36192518067469,
               image: Subway,
               des: "[매일] 08:00 ~ 23:00",
+              link: "https://www.kaist.ac.kr/kr/html/campus/053306.html",
               menu: "샌드위치, 커피, 음료, 쿠키, 샐러드 등",
             },
           ];
