@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import "./HomeTab.css";
 const socket = io("http://localhost:4000");
 
-const HomeTab = ({ userName }) => {
+const HomeTab = ({ userName, place }) => {
   const [message, setMessage] = useState("");
   const [chat, setChat] = useState([]);
   const nickname = userName;
@@ -17,14 +17,14 @@ const HomeTab = ({ userName }) => {
     socket.on("chat history", (data) => {
       setChat([...data]);
     });
-
-    socket.emit("get chat history");
+    const selectedPlace = place.name;
+    socket.emit("get chat history", selectedPlace);
 
     return () => {
       socket.off("chat message");
       socket.off("chat history");
     };
-  }, []);
+  }, [place]);
 
   const onTextChange = (e) => {
     setMessage(e.target.value);
@@ -37,7 +37,8 @@ const HomeTab = ({ userName }) => {
       alert("메시지를 입력하세요.");
     } else {
       const timestamp = new Date();
-      socket.emit("chat message", { nickname, message, timestamp });
+      const placeName = place.name;
+      socket.emit("chat message", { nickname, message, timestamp, placeName });
       setMessage("");
     }
   };

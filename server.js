@@ -20,8 +20,8 @@ const io = socketIo(server, {
 io.on("connection", (socket) => {
   console.log("New client connected");
 
-  socket.on("get chat history", () => {
-    Chat.find({})
+  socket.on("get chat history", (placeName) => {
+    Chat.find({ place: placeName })
       .sort("-timestamp")
       .limit(10)
       .then((chats) => {
@@ -41,8 +41,14 @@ io.on("connection", (socket) => {
   socket.on("chat message", (data) => {
     console.log("nickname: ", data.nickname);
     console.log("message: ", data.message);
+    console.log("place: ", data.placeName);
 
-    const chat = new Chat(data);
+    const chat = new Chat({
+      nickname: data.nickname,
+      message: data.message,
+      timestamp: data.timestamp,
+      place: data.placeName,
+    });
     chat
       .save()
       .then(() => console.log("Chat saved"))
@@ -81,6 +87,7 @@ const ChatSchema = new mongoose.Schema({
   nickname: String,
   message: String,
   timestamp: Date,
+  place: String,
 });
 const Chat = mongoose.model("Chat", ChatSchema);
 

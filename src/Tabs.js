@@ -36,7 +36,9 @@ const Tabs = ({ place, userName }) => {
             리뷰
           </button>
 
-          {currentTab === "home" && <HomeTab userName={userName} />}
+          {currentTab === "home" && (
+            <HomeTab userName={userName} place={place} />
+          )}
           {currentTab === "menu" && <MenuTab place={place} />}
           {currentTab === "review" && <ReviewTab place={place} />}
         </div>
