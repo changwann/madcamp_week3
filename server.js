@@ -1,3 +1,4 @@
+//server.js
 const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
@@ -18,9 +19,35 @@ const io = socketIo(server, {
 
 io.on("connection", (socket) => {
   console.log("New client connected");
+
+  socket.on("get chat history", () => {
+    Chat.find({})
+      .sort("-timestamp")
+      .limit(10)
+      .then((chats) => {
+        socket.emit("chat history", chats);
+      })
+      .catch((err) => console.error("Failed to load chats", err));
+  });
+
+  Chat.find({})
+    .sort("-timestamp")
+    .limit(10)
+    .then((chats) => {
+      socket.emit("chat history", chats);
+    })
+    .catch((err) => console.error("Failed to load chats", err));
+
   socket.on("chat message", (data) => {
     console.log("nickname: ", data.nickname);
     console.log("message: ", data.message);
+
+    const chat = new Chat(data);
+    chat
+      .save()
+      .then(() => console.log("Chat saved"))
+      .catch((err) => console.error("Failed to save chat", err));
+
     io.emit("chat message", data);
   });
 
@@ -49,6 +76,13 @@ const UserSchema = new mongoose.Schema({
   nickname: String,
 });
 const User = mongoose.model("User", UserSchema);
+
+const ChatSchema = new mongoose.Schema({
+  nickname: String,
+  message: String,
+  timestamp: Date,
+});
+const Chat = mongoose.model("Chat", ChatSchema);
 
 // 사용자 정보 저장 API
 app.post("/api/saveUserInfo", async (req, res) => {

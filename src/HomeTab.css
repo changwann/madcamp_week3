@@ -1,0 +1,32 @@
+.bubble-right {
+  margin: 5px;
+  display: inline-block;
+  position: relative;
+  background-color: #f1f0f0;
+  border-radius: 5px;
+  padding: 10px;
+  float: right;
+  clear: both;
+}
+
+.bubble-left {
+  margin: 5px;
+  display: inline-block;
+  position: relative;
+  background-color: #f1f0f0;
+  border-radius: 5px;
+  padding: 10px;
+  float: left;
+  clear: both;
+}
+
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: 15px solid;
+  border-color: #f1f0f0 transparent transparent transparent;
+  top: 100%;
+  left: 50%;
+}
