@@ -1,0 +1,85 @@
+.review-tab-container {
+    text-align: center;
+  }
+  
+  .average-rating-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .average-rating-container > span {
+    margin-left: 10px;
+    font-weight: bold;
+  }
+  
+  .review-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px; /* 조정: Write a review 버튼과 전체평점 사이의 거리 늘리기 */
+    padding: 20px; /* 조정: 사각형 레이아웃을 위한 padding 설정 */
+    border: 1px solid #DDD; /* 조정: 사각형 레이아웃을 위한 border 설정 */
+    border-radius: 4px; /* 조정: 사각형 레이아웃을 위한 border-radius 설정 */
+  }
+
+  .review-form .button-container {
+    margin-top: 5px; /* 조정: 취소 버튼과 Submit 버튼 사이의 거리 늘리기 */
+  }
+  
+  .reviews-container {
+    text-align: center;
+  }
+  
+  .review-item {
+    border: 1px solid #DDD;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+  }
+  
+  .review-item h4,
+  .review-item p,
+  .review-item small {
+    text-align: center;
+  }
+  
+  .review-item h4,
+  .review-item p {
+    margin-top: 3px;
+  }
+
+  .review-form .button-container button {
+    margin-right: 15px;
+    margin-left: 15px; /* 조정: 취소 버튼과 Submit 버튼 사이의 간격 늘리기 */
+  }
+  
+  .react-star-ratings-svg {
+    fill: yellow;
+  }
+  
+  .average-rating-container > span {
+    font-size: 16px;
+  }
+  
+  button {
+    margin-bottom: 20px; /* 조정: Write a review 버튼과 홈, 메뉴, 리뷰 선택 탭 사이의 거리 늘리기 */
+  }
+
+  button {
+    background-color: #000080;
+    color: #fff;
+    border: none;
+    padding: 8px 17px;
+    border-radius: 3px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  

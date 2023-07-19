@@ -18,12 +18,6 @@ const Tabs = ({ place, userName }) => {
       {place && (
         <div>
           <button
-            style={currentTab === "home" ? activeButtonStyle : buttonStyle}
-            onClick={() => setCurrentTab("home")}
-          >
-            홈
-          </button>
-          <button
             style={currentTab === "menu" ? activeButtonStyle : buttonStyle}
             onClick={() => setCurrentTab("menu")}
           >
@@ -34,6 +28,15 @@ const Tabs = ({ place, userName }) => {
             onClick={() => setCurrentTab("review")}
           >
             리뷰
+
+
+          </button>
+
+          <button
+            style={currentTab === "home" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("home")}
+          >
+            채팅
           </button>
 
           {currentTab === "home" && (

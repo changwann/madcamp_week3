@@ -106,6 +106,7 @@ const ReviewSchema = new mongoose.Schema({
   review: String,
   timestamp: Date,
   place: String,
+  rating: Number,
 });
 const Review = mongoose.model("Review", ReviewSchema);
 
@@ -186,10 +187,10 @@ app.get("/professor", async (req, res) => {
 
 
 app.post("/api/saveReview", async (req, res) => {
-  const { nickname, review, place } = req.body;
+  const { nickname, review, place, rating } = req.body;
 
   try {
-    const reviewRecord = new Review({ nickname, review, timestamp: new Date(), place });
+    const reviewRecord = new Review({ nickname, review, timestamp: new Date(), place, rating });
     await reviewRecord.save();
     res.json({ message: "Review saved successfully" });
   } catch (err) {
@@ -203,7 +204,8 @@ app.get("/api/getReviews/:place", async (req, res) => {
 
   try {
     const reviews = await Review.find({ place }).sort("-timestamp");
-    res.json(reviews);
+    const averageRating = reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
+    res.json({ reviews, averageRating });
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Failed to get reviews" });

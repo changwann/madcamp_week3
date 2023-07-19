@@ -52,9 +52,9 @@ const HomeTab = ({ userName, place }) => {
           onChange={(e) => onTextChange(e)}
           value={message}
           placeholder="채팅을 보내보세요!"
-          style={{ width: "75%", height: "20px" }}
+          style={{ width: "75%", height: "25px" }}
         />
-        <button style={{ width: "23%", height: "26px" }}>전송</button>
+        <button style={{ width: "23%", height: "36px" }}>전송</button>
       </form>
       {chat.map((msg, idx) => {
         if (msg.nickname === nickname) {
