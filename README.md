@@ -28,7 +28,7 @@
 
 ## :pushpin: 개발 환경
 
-Frontend: HTML, CSS
+Frontend: HTML, CSS  
 Backend: Node.js (express)  
 DataBase: MongoDB (mongoose)  
 IDE: VScode
