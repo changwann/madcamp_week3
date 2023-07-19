@@ -44,6 +44,46 @@
   font-style: normal;
 }
 
-body {
+.body {
   font-family: "omyu_pretty", sans-serif;
+}
+
+.background {
+  width: 100vw;
+  height: 100vh;
+  background-image: url("./assets/kaist.jpg");
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.centerBox {
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.icon {
+  width: 100px;
+  height: 100px;
+}
+
+.loginButton {
+  margin-top: 20px;
+  font-family: "omyu-pretty", sans-serif;
 }

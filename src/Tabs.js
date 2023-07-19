@@ -3,11 +3,11 @@ import HomeTab from "./HomeTab";
 import MenuTab from "./MenuTab";
 import ReviewTab from "./ReviewTab";
 
-const Tabs = ({ place }) => {
+const Tabs = ({ place, userName }) => {
   const [currentTab, setCurrentTab] = useState("home");
 
   useEffect(() => {
-    setCurrentTab("home");
+    setCurrentTab("menu");
   }, [place]);
 
   const buttonStyle = { width: "33.33%", height: "50px" };
@@ -15,31 +15,38 @@ const Tabs = ({ place }) => {
 
   return (
     <div>
-      <button
-        style={currentTab === "home" ? activeButtonStyle : buttonStyle}
-        onClick={() => setCurrentTab("home")}
-      >
-        홈
-      </button>
-      <button
-        style={currentTab === "menu" ? activeButtonStyle : buttonStyle}
-        onClick={() => setCurrentTab("menu")}
-      >
-        메뉴
-      </button>
-      <button
-        style={currentTab === "review" ? activeButtonStyle : buttonStyle}
-        onClick={() => setCurrentTab("review")}
-      >
-        리뷰
-      </button>
+      {place && (
+        <div>
+          <button
+            style={currentTab === "menu" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("menu")}
+          >
+            메뉴
+          </button>
+          <button
+            style={currentTab === "review" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("review")}
+          >
+            리뷰
 
-      {currentTab === "home" && <HomeTab />}
-      {currentTab === "menu" && <MenuTab place={place}/>}
-      {currentTab === "review" && (
-        <ReviewTab
-          place={place}
-        />
+
+          </button>
+
+          <button
+            style={currentTab === "home" ? activeButtonStyle : buttonStyle}
+            onClick={() => setCurrentTab("home")}
+          >
+            채팅
+          </button>
+
+          {currentTab === "home" && (
+            <HomeTab userName={userName} place={place} />
+          )}
+          {currentTab === "menu" && <MenuTab place={place} />}
+          {currentTab === "review" && (
+            <ReviewTab userName={userName} place={place} />
+          )}
+        </div>
       )}
     </div>
   );
